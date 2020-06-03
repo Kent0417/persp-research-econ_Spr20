@@ -5,9 +5,9 @@ This code is written for the research project in MACS 30250 Perspectives on Comp
 This Python-language DSGE model implementation is created by referring to [New York Fed DSGE model](https://github.com/FRBNY-DSGE/DSGE.jl) written in Julia and [SeHyoun Ahn](https://sehyoun.com/EXAMPLE_one_asset_HANK_web.html)'s code written in Matlab.
 
 ## Contents
-- Build DSGE model (`build_RANK`,`build_OneAssetHANK`)
-  - Representative Agent New Keynesian model is based on An and Schorfheide (2007)
-  - One asset Heterogeneous Agent New Keynesian model is based on Ahn et al. (2017)
+- Build DSGE model
+  - Representative Agent New Keynesian model is based on An and Schorfheide (2007) (`build_RANK`)
+  - One asset Heterogeneous Agent New Keynesian model is based on Ahn et al. (2017) (`build_OneAssetHANK`)
   - You can change parameters, sampling methods, prior distributions etc as you want
 - Solve DSGE model via a solution method of Sims(2002) and Generate state space system (`solve_**`)
 - Estimate structure parameters by Bayesian approach + Markov Chain Monte Carlo (`estimate`)
@@ -21,7 +21,7 @@ This Python-language DSGE model implementation is created by referring to [New Y
 │   ├── measurement.py
 │   ├── reduction.py
 │   └── solve_HANK.py
-├── RANK                             ## Construct and solve  RANK model
+├── RANK                             ## Construct and solve RANK model
 │   ├── build_RANK.py
 │   ├── eqcond.py
 │   ├── measurement.py
@@ -52,14 +52,16 @@ data = np.loadtxt('data/macro_data.csv')
 
 # Estimate RANK model with MH algorithm (default)
 # CAUTION: Take more than one hour to finish
-result = estimate.run(data, "RANK",
-                      continue_intermediate=False,
-                      save_intermediate=True)
+estimate.run(data, "RANK",
+            　continue_intermediate=False,
+            　save_intermediate=True)
 
 # Estimate one asset HANK model with SMC algorithm (default)
 # CAUTION: Take more than 20-30 hours to finish
-result = estimate.run(data, "HANK",
-                      continue_intermediate=False,
-                      save_intermediate=True,
-                      intermediate_stage_increment=1,)
+estimate.run(data, "HANK",
+              continue_intermediate=False,
+              save_intermediate=True,
+              intermediate_stage_increment=1)
+
+# Estimation result will be saved at `output` folder at current directory
 ```
